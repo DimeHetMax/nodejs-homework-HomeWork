@@ -27,9 +27,9 @@ const login = async (req, res, next) => {
             return res.status(401).json({ "message": "Email or password is wrong" });
         }
 
-        const token = jwt.sign({ email: user.email }, process.env.JWT_SIGN);
+        const token = jwt.sign({ email: user.email, id: user._id }, process.env.JWT_SIGN);
 
-        const updatedUser = await userService.findUserById(user._id.toString(), { token }, { set: true })
+        const updatedUser = await userService.findUserByIdandUpdate(user._id.toString(), { token }, { set: true })
 
         res.status(200).json({
             "token": token,
