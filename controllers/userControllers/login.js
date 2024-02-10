@@ -16,7 +16,6 @@ const login = async (req, res, next) => {
         const { email, password } = value;
 
         const user = await userService.findOneUser(email);
-        console.log("user ===>>", user)
         if (user === null) {
             return res.status(401).send({ "message": "Email or password is incorrect!" })
         }
