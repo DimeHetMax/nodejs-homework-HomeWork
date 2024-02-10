@@ -10,7 +10,7 @@ const register = async (req, res, next) => {
             return res.status(400).json({ "message": `Bad Request! ${message}` })
         }
         const hashedPassword = await bcrypt.hash(value.password, 10)
-        // console.log(hashedPassword)
+
         const newUser = await userService.addUser({ email: value.email, password: hashedPassword })
         res.status(201).json({ "user": newUser })
     } catch (error) {
