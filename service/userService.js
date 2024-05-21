@@ -10,7 +10,7 @@ const findUserById = async (id) => {
     return User.findById(id)
 }
 const findUserByIdandUpdate = async (id, item) => {
-    return User.findByIdAndUpdate(id, item)
+    return User.findByIdAndUpdate(id, item, { returnDocument: "after" })
 }
 module.exports = {
     addUser,

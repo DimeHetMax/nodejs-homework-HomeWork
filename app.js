@@ -1,12 +1,14 @@
 const express = require('express')
 const logger = require('morgan')
 const cors = require('cors')
-
+const path = require('path')
 const contactsRouter = require('./routes/index')
 
 const app = express()
 
-const formatsLogger = app.get('env') === 'development' ? 'dev' : 'short'
+const formatsLogger = app.get('env') === 'development' ? 'dev' : 'short';
+
+app.use('/avatars', express.static(path.resolve("public/avatars")))
 
 app.use(logger(formatsLogger))
 app.use(cors())

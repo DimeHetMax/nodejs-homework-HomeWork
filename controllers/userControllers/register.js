@@ -1,4 +1,5 @@
 const bcrypt = require('bcrypt');
+const gravatar = require('gravatar');
 const { userService } = require("../../service/index")
 const { userSchema } = require("../../JoiSchema/index");
 
@@ -11,7 +12,10 @@ const register = async (req, res, next) => {
         }
         const hashedPassword = await bcrypt.hash(value.password, 10)
 
-        const newUser = await userService.addUser({ email: value.email, password: hashedPassword })
+        const avatar = gravatar.url(value.email, { s: '200', r: 'pg', d: 'mm', protocol: 'https' });
+
+        const newUser = await userService.addUser({ email: value.email, password: hashedPassword, avatarURL: avatar })
+
         res.status(201).json({ "user": newUser })
     } catch (error) {
         if (error.code === 11000) {
