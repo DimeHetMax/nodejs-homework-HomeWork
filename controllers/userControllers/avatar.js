@@ -1,3 +1,4 @@
+const Jimp = require("jimp");
 const fs = require("node:fs").promises;
 const path = require("node:path");
 
@@ -6,8 +7,11 @@ const { userService } = require("../../service/index");
 const avatar = async (req, res, next) => {
     const { id } = req.user;
     const { filename, path: filePath } = req.file;
-    // console.log("====>>>", req.headers.host, req.url, filename)
     try {
+        const image = await Jimp.read(filePath);
+        await image.resize(250, 250);
+        await image.writeAsync(filePath)
+
         await fs.rename(
             filePath,
             path.resolve("public/avatars", filename)
