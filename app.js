@@ -1,18 +1,20 @@
 const express = require('express')
 const logger = require('morgan')
 const cors = require('cors')
-
-const contactsRouter = require('./routes/api/contacts')
+const path = require('path')
+const contactsRouter = require('./routes/index')
 
 const app = express()
 
-const formatsLogger = app.get('env') === 'development' ? 'dev' : 'short'
+const formatsLogger = app.get('env') === 'development' ? 'dev' : 'short';
+
+app.use('/avatars', express.static(path.resolve("public/avatars")))
 
 app.use(logger(formatsLogger))
 app.use(cors())
 app.use(express.json())
 
-app.use('/api/contacts', contactsRouter)
+app.use('/', contactsRouter)
 
 app.use((req, res) => {
   res.status(404).json({ message: 'Not found' })
