@@ -1,8 +1,8 @@
 require('dotenv').config()
 const nodemailer = require("nodemailer");
 
-console.log("MAIL_USER ===>", process.env.MAIL_USER);
-console.log("MAIL_PASS ===>", process.env.MAIL_PASS);
+// console.log("MAIL_USER ===>", process.env.MAIL_USER);
+// console.log("MAIL_PASS ===>", process.env.MAIL_PASS);
 
 const transport = nodemailer.createTransport({
     host: "sandbox.smtp.mailtrap.io",

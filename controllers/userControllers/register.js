@@ -27,7 +27,7 @@ const register = async (req, res, next) => {
             html: `Hey! New user! You need to verify your account to keep going by this link <a href="http://localhost:3000/users/verify/${verifyToken}">Click me</a>`,
             text: `Hey! New user! You need to verify your account to keep going by this link http://localhost:3000/users/verify/${verifyToken}`,
         })
-        res.status(201).json({ "user": newUser })
+        res.status(201).json({ "email": newUser.email, "subscription": newUser.subscription })
     } catch (error) {
         if (error.code === 11000) {
             return res.status(409).json({
